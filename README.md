@@ -1,0 +1,1 @@
+Decision Tree ML model that predicts if a character will join the empire or the resistance based on their homeworld and unit_type.
