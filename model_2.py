@@ -77,6 +77,18 @@ y_pred
 
 
 # %%
+importances = dtc.feature_importances_
+feature_importances = pd.DataFrame({'Feature': x_encoded.columns, 'Importance': importances})
+feature_importances.sort_values('Importance', ascending = False).plot.bar(x = 'Feature', y = 'Importance')
+plt.xlabel('Feature')
+plt.ylabel('Importance')
+plt.title('Feature Importances')
+plt.grid(color = '#d3d3d3')
+plt.xticks(fontsize = 6)
+plt.show()
+
+
+# %%
 import pickle
 
 # Specify the file path to save the pipeline
@@ -101,3 +113,5 @@ df.head()
 # %%
 # Save the DataFrame to a Parquet file
 df.to_parquet('troop_movements_1m.parquet', engine='pyarrow')
+# %%
+
