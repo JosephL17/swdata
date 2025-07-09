@@ -38,6 +38,11 @@ unit_types = data.groupby('unit_type').size().reset_index(name='count')
 unit_types
 
 # %%
+# Creates a new feature based on whether character is empire or resistance
+data["is_resistance"] = data["empire_or_resistance"] == "resistance"
+print(data.head())
+
+# %%
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -84,5 +89,29 @@ plt.show()
 
 
 # %%
+import pickle
+
+# Specify the file path to save the pipeline
+file_path = 'trained_model.pkl'
+
+# Save the pipeline to disk
+with open(file_path, 'wb') as file:
+    pickle.dump('trained_model', file)
 
 # %%
+# Load "real data" and clean unit_type feature
+df = pd.read_csv('troop_movements_1m.csv')
+
+df.replace('invalid_unit', 'unknown')
+df.head(25)
+
+ # %%
+ # Fill in missing values of location_x and y features
+df.ffill()
+df.head()
+
+# %%
+# Save the DataFrame to a Parquet file
+df.to_parquet('troop_movements_1m.parquet', engine='pyarrow')
+# %%
+
